@@ -1,0 +1,511 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>全球旅行计划</title>
+    <style>
+        /* 全局样式 */
+        body {
+            font-family: 'Arial', sans-serif;
+            margin: 0;
+            padding: 0;
+            background: url('https://media.giphy.com/media/3o7aD2d7hy9ktXNDP2/giphy.gif') no-repeat center center fixed;
+            background-size: cover;
+            color: #fff;
+            min-height: 100vh;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            position: relative;
+            overflow: auto;
+        }
+
+        body::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: linear-gradient(to bottom, rgba(0, 0, 0, 0.5), rgba(0, 0, 0, 0.8)); /* 渐变遮罩 */
+            z-index: -1;
+        }
+
+        h1 {
+            font-size: 3rem;
+            margin: 20px 0;
+            text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.5);
+        }
+
+        /* 导航栏 */
+        nav {
+            margin: 20px 0;
+            display: flex;
+            justify-content: center;
+            background: rgba(255, 255, 255, 0.2);
+            padding: 10px;
+            border-radius: 10px;
+            backdrop-filter: blur(10px);
+        }
+
+        nav button {
+            padding: 10px 20px;
+            font-size: 1rem;
+            background: transparent;
+            color: white;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+            margin: 0 10px;
+            transition: background 0.3s ease, transform 0.3s ease;
+        }
+
+        nav button:hover,
+        nav button.active {
+            background: rgba(255, 255, 255, 0.4);
+            transform: scale(1.05);
+        }
+
+        /* 页面内容 */
+        .page {
+            background: rgba(255, 255, 255, 0.1);
+            padding: 30px;
+            border-radius: 15px;
+            box-shadow: 0 8px 32px rgba(0, 0, 0, 0.2);
+            backdrop-filter: blur(10px);
+            width: 100%;
+            max-width: 800px;
+            margin: 20px 0;
+            opacity: 0;
+            transition: opacity 0.5s ease;
+            position: relative;
+        }
+
+        .page.active {
+            opacity: 1;
+        }
+
+        img {
+            max-width: 100%;
+            height: auto;
+            border-radius: 10px;
+            margin-top: 20px;
+            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.2);
+        }
+
+        .destination {
+            display: flex;
+            align-items: center;
+            margin-bottom: 20px;
+        }
+
+        .destination img {
+            width: 150px;
+            height: 100px;
+            margin-right: 20px;
+            border-radius: 10px;
+        }
+
+        .destination p {
+            flex: 1;
+        }
+
+        /* 任务清单页面 */
+        .todo-container {
+            background: rgba(255, 255, 255, 0.05);
+            padding: 20px;
+            border-radius: 10px;
+            box-shadow: inset 0 4px 8px rgba(0, 0, 0, 0.2);
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+        }
+
+        #task-input {
+            width: calc(100% - 40px);
+            padding: 10px;
+            border: 1px solid rgba(255, 255, 255, 0.3);
+            border-radius: 5px;
+            margin-bottom: 10px;
+            background: rgba(255, 255, 255, 0.1);
+            color: #fff;
+            font-size: 1rem;
+            transition: border-color 0.3s ease;
+        }
+
+        #task-input:focus {
+            border-color: rgba(255, 255, 255, 0.5);
+        }
+
+        #add-task-btn {
+            padding: 10px 20px;
+            background: rgba(255, 255, 255, 0.2);
+            color: white;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+            transition: background 0.3s ease, transform 0.3s ease;
+            font-size: 1rem;
+        }
+
+        #add-task-btn:hover {
+            background: rgba(255, 255, 255, 0.4);
+            transform: scale(1.05);
+        }
+
+        #task-list {
+            list-style: none;
+            padding: 0;
+            margin-top: 20px;
+            width: 100%;
+        }
+
+        .task-item {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 10px;
+            border-bottom: 1px solid rgba(255, 255, 255, 0.2);
+            transition: background 0.3s ease;
+        }
+
+        .task-item:hover {
+            background: rgba(255, 255, 255, 0.05);
+        }
+
+        .task-item.completed {
+            text-decoration: line-through;
+            color: rgba(255, 255, 255, 0.5);
+        }
+
+        .task-item span {
+            flex: 1;
+            cursor: pointer;
+        }
+
+        .task-item button {
+            background: rgba(255, 255, 255, 0.2);
+            color: white;
+            border: none;
+            border-radius: 5px;
+            padding: 5px 10px;
+            cursor: pointer;
+            transition: background 0.3s ease, transform 0.3s ease;
+            font-size: 0.9rem;
+        }
+
+        .task-item button:hover {
+            background: rgba(255, 255, 255, 0.4);
+            transform: scale(1.05);
+        }
+
+        /* 合并后关于和联系页面 */
+        .about-contact-section {
+            margin-top: 20px; /* 调整内容排版靠上 */
+            text-align: center;
+        }
+
+        .about-contact-section h2 {
+            font-size: 2rem;
+            margin-bottom: 20px;
+        }
+
+        .about-contact-section p {
+            font-size: 1rem;
+            line-height: 1.4;
+            margin: 5px 0;
+        }
+
+        .contact-form {
+            margin-top: 20px; /* 调整内容排版靠上 */
+            text-align: center;
+        }
+
+        .contact-form form {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+        }
+
+        .contact-form input[type="text"],
+        .contact-form textarea {
+            width: 80%;
+            padding: 10px;
+            margin: 5px 0;
+            border: 1px solid rgba(255, 255, 255, 0.3);
+            border-radius: 5px;
+            background: rgba(255, 255, 255, 0.1);
+            color: #fff;
+            font-size: 1rem;
+        }
+
+        .contact-form button {
+            padding: 10px 20px;
+            background: rgba(255, 255, 255, 0.2);
+            color: white;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+            transition: background 0.3s ease, transform 0.3s ease;
+            font-size: 1rem;
+        }
+
+        .contact-form button:hover {
+            background: rgba(255, 255, 255, 0.4);
+            transform: scale(1.05);
+        }
+
+        /* 页脚 */
+        .footer {
+            margin-top: 40px;
+            text-align: center;
+            font-size: 0.9rem;
+            color: rgba(255, 255, 255, 0.7);
+        }
+
+        /* 轮播图样式 */
+        .carousel-container {
+            position: relative;
+            max-width: 800px;
+            margin: 20px auto;
+            overflow: hidden;
+            border-radius: 10px;
+            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.2);
+        }
+
+        .carousel {
+            display: flex;
+            transition: transform 0.5s ease;
+        }
+
+        .carousel img {
+            width: 100%;
+            height: auto;
+            border-radius: 10px;
+            flex-shrink: 0; /* 防止图片缩小 */
+        }
+
+        /* 轮播图控制按钮 */
+        .carousel-btn {
+            position: absolute;
+            top: 50%;
+            transform: translateY(-50%);
+            background: rgba(255, 255, 255, 0.5);
+            color: #333;
+            border: none;
+            padding: 10px;
+            cursor: pointer;
+            border-radius: 50%;
+            font-size: 1.5rem;
+            transition: background 0.3s ease;
+        }
+
+        .carousel-btn:hover {
+            background: rgba(255, 255, 255, 0.8);
+        }
+
+        .carousel-btn.prev {
+            left: 10px;
+        }
+
+        .carousel-btn.next {
+            right: 10px;
+        }
+    </style>
+</head>
+<body>
+
+    <!-- 导航栏 -->
+    <nav>
+        <button onclick="showPage('home')">首页</button>
+        <button onclick="showPage('destinations')">目的地</button>
+        <button onclick="showPage('todo')">任务清单</button>
+        <button onclick="showPage('about-contact')">关于我们 & 联系我们</button>
+    </nav>
+
+    <!-- 首页 -->
+    <div id="home" class="page active">
+        <h1>全球旅行计划</h1>
+        <p>规划你的下一次冒险，探索世界的美丽角落。</p>
+        
+        <!-- 轮播图容器 -->
+        <div class="carousel-container">
+            <div class="carousel">
+                <!-- 提示：在这里替换为你自己的图片链接 -->
+                <img src="https://cdn.pixabay.com/photo/2024/01/12/21/23/cortina-dampezzo-8504755_1280.jpg" alt="旅行风光 1">
+                <img src="https://cdn.pixabay.com/photo/2018/10/12/11/07/sea-3741909_1280.jpg" alt="旅行风光 2">
+                <img src="https://cdn.pixabay.com/photo/2018/12/02/16/17/beach-3851535_1280.jpg" alt="旅行风光 3">
+            </div>
+            <!-- 轮播图控制按钮 -->
+            <button class="carousel-btn prev" onclick="prevSlide()">&#10094;</button>
+            <button class="carousel-btn next" onclick="nextSlide()">&#10095;</button>
+        </div>
+    </div>
+
+    <!-- 目的地页面 -->
+    <div id="destinations" class="page">
+        <h1>推荐目的地</h1>
+        <div class="destination">
+            <img src="https://ts1.tc.mm.bing.net/th/id/R-C.96a8ad8351d1b80697e3b73d74b917e4?rik=WlJwthQbDps0eQ&riu=http%3a%2f%2fseopic.699pic.com%2fphoto%2f50095%2f4648.jpg_wh1200.jpg&ehk=G2YV%2b7L1pVdiuXl5gr40IrPB4Lmn8RFwMlqd3o9U50w%3d&risl=&pid=ImgRaw&r=0" alt="巴黎">
+            <p><strong>巴黎</strong> - 浪漫之都，拥有埃菲尔铁塔和卢浮宫等著名景点。</p>
+        </div>
+        <div class="destination">
+            <img src="https://youimg1.c-ctrip.com/target/0101t1200082uzqwk91CA.jpg" alt="东京">
+            <p><strong>东京</strong> - 现代化与传统文化的完美结合。</p>
+        </div>
+        <div class="destination">
+            <img src="https://img95.699pic.com/photo/32182/6702.jpg_wh860.jpg" alt="纽约">
+            <p><strong>纽约</strong> - 大都市的魅力，自由女神像和时代广场等你探索。</p>
+        </div>
+        <div class="destination">
+            <img src="https://youimg1.c-ctrip.com/target/0104j120006p3qa0gA978_D_10000_1200.jpg?proc=autoorient" alt="长城">
+            <p><strong>长城</strong> - 中国的象征，世界七大奇迹之一。</p>
+        </div>
+    </div>
+
+    <!-- 任务清单页面 -->
+    <div id="todo" class="page">
+        <h1>旅行任务清单</h1>
+        <div class="todo-container">
+            <input type="text" id="task-input" placeholder="输入新任务">
+            <button id="add-task-btn">添加任务</button>
+
+            <ul id="task-list"></ul>
+        </div>
+    </div>
+
+    <!-- 关于我们和联系我们合并页面 -->
+    <div id="about-contact" class="page">
+        <h1>关于我们 & 联系我们</h1>
+        <section class="about-contact-section">
+            <h2>关于我们</h2>
+            <p>我们的团队致力于帮助您规划完美的旅行路线。从浪漫的城市漫步到探险未知的自然景观，我们将为您提供专业的建议和服务。</p>
+            <p>如果您有任何疑问或需要定制化的旅行方案，请随时联系我们的客服团队。</p>
+        </section>
+        <section class="contact-form">
+            <h2>联系我们</h2>
+            <form>
+                <input type="text" placeholder="您的姓名">
+                <input type="text" placeholder="您的邮箱">
+                <textarea rows="5" placeholder="您的留言"></textarea>
+                <button type="submit">提交</button>
+            </form>
+        </section>
+    </div>
+
+    <!-- 页脚 -->
+    <div class="footer">
+        <p>&copy; 2023 全球旅行计划. 保留所有权利.</p>
+    </div>
+
+    <script>
+        // 页面切换函数
+        function showPage(pageId) {
+            // 隐藏所有页面
+            document.querySelectorAll('.page').forEach(page => {
+                page.classList.remove('active');
+            });
+
+            // 显示目标页面
+            const targetPage = document.getElementById(pageId);
+            targetPage.classList.add('active');
+
+            // 更新导航栏按钮状态
+            document.querySelectorAll('nav button').forEach(button => {
+                button.classList.remove('active');
+            });
+            document.querySelector(`nav button[onclick="showPage('${pageId}')"]`).classList.add('active');
+
+            // 自动滚动到目标页面
+            targetPage.scrollIntoView({ behavior: 'smooth' });
+        }
+
+        // 任务清单功能
+        const taskInput = document.getElementById("task-input");
+        const addTaskBtn = document.getElementById("add-task-btn");
+        const taskList = document.getElementById("task-list");
+
+        // 添加任务
+        addTaskBtn.addEventListener("click", () => {
+            const taskText = taskInput.value.trim();
+            if (taskText !== "") {
+                addTask(taskText);
+                taskInput.value = "";
+            }
+        });
+
+        // 回车键添加任务
+        taskInput.addEventListener("keypress", (e) => {
+            if (e.key === "Enter") {
+                addTaskBtn.click();
+            }
+        });
+
+        // 添加任务到列表
+        function addTask(taskText) {
+            const taskItem = document.createElement("li");
+            taskItem.classList.add("task-item");
+
+            const taskSpan = document.createElement("span");
+            taskSpan.textContent = taskText;
+
+            const deleteBtn = document.createElement("button");
+            deleteBtn.textContent = "删除";
+            deleteBtn.addEventListener("click", () => {
+                taskList.removeChild(taskItem);
+            });
+
+            taskSpan.addEventListener("click", () => {
+                taskItem.classList.toggle("completed");
+            });
+
+            taskItem.appendChild(taskSpan);
+            taskItem.appendChild(deleteBtn);
+            taskList.appendChild(taskItem);
+        }
+
+        // 轮播图功能
+        let currentIndex = 0; // 当前显示的图片索引
+        const carousel = document.querySelector('.carousel');
+        const images = document.querySelectorAll('.carousel img');
+        const totalImages = images.length;
+
+        // 切换到指定图片
+        function showSlide(index) {
+            if (index < 0) {
+                index = totalImages - 1; // 如果是第一张，切换到最后一张
+            } else if (index >= totalImages) {
+                index = 0; // 如果是最后一张，切换到第一张
+            }
+            currentIndex = index;
+            const offset = -currentIndex * 100; // 计算偏移量
+            carousel.style.transform = `translateX(${offset}%)`; // 移动轮播图
+        }
+
+        // 上一张
+        function prevSlide() {
+            showSlide(currentIndex - 1);
+        }
+
+        // 下一张
+        function nextSlide() {
+            showSlide(currentIndex + 1);
+        }
+
+        // 自动轮播
+        let autoSlideInterval = setInterval(nextSlide, 3000); // 每 3 秒切换一次
+
+        // 鼠标悬停时暂停自动轮播
+        const carouselContainer = document.querySelector('.carousel-container');
+        carouselContainer.addEventListener('mouseenter', () => {
+            clearInterval(autoSlideInterval);
+        });
+
+        // 鼠标离开时恢复自动轮播
+        carouselContainer.addEventListener('mouseleave', () => {
+            autoSlideInterval = setInterval(nextSlide, 3000);
+        });
+    </script>
+</body>
+</html>
