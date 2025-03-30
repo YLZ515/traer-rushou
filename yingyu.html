@@ -1,0 +1,485 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>英语六级单词背诵</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+        
+        body {
+            font-family: 'Microsoft YaHei', sans-serif;
+            background-color: #f5f7fa;
+            color: #333;
+            line-height: 1.6;
+            padding: 20px;
+        }
+        
+        .container {
+            max-width: 800px;
+            margin: 0 auto;
+            background-color: #fff;
+            border-radius: 10px;
+            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.1);
+            padding: 30px;
+        }
+        
+        header {
+            text-align: center;
+            margin-bottom: 30px;
+            padding-bottom: 20px;
+            border-bottom: 1px solid #eee;
+        }
+        
+        h1 {
+            color: #3498db;
+            font-size: 2.2em;
+            margin-bottom: 10px;
+        }
+        
+        .subtitle {
+            color: #7f8c8d;
+            font-size: 1.1em;
+        }
+        
+        .word-container {
+            background-color: #f8f9fa;
+            border-radius: 8px;
+            padding: 25px;
+            margin-bottom: 25px;
+            box-shadow: 0 2px 5px rgba(0, 0, 0, 0.05);
+            position: relative;
+        }
+        
+        .word {
+            font-size: 2.5em;
+            font-weight: bold;
+            color: #2c3e50;
+            margin-bottom: 10px;
+            text-align: center;
+        }
+        
+        .phonetic {
+            text-align: center;
+            color: #7f8c8d;
+            font-size: 1.2em;
+            margin-bottom: 20px;
+        }
+        
+        .meaning {
+            background-color: #fff;
+            padding: 15px;
+            border-radius: 5px;
+            border-left: 4px solid #3498db;
+            margin-bottom: 15px;
+            display: none;
+        }
+        
+        .meaning.show {
+            display: block;
+        }
+        
+        .example {
+            font-style: italic;
+            color: #7f8c8d;
+            margin-top: 10px;
+            padding-left: 10px;
+            border-left: 2px solid #ddd;
+        }
+        
+        .controls {
+            display: flex;
+            justify-content: space-between;
+            margin-top: 20px;
+        }
+        
+        button {
+            padding: 10px 20px;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+            font-size: 1em;
+            transition: all 0.3s ease;
+        }
+        
+        button:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 3px 8px rgba(0, 0, 0, 0.1);
+        }
+        
+        .btn-show {
+            background-color: #3498db;
+            color: white;
+        }
+        
+        .btn-next {
+            background-color: #2ecc71;
+            color: white;
+        }
+        
+        .btn-prev {
+            background-color: #e74c3c;
+            color: white;
+        }
+        
+        .progress {
+            margin-top: 20px;
+            height: 10px;
+            background-color: #ecf0f1;
+            border-radius: 5px;
+            overflow: hidden;
+        }
+        
+        .progress-bar {
+            height: 100%;
+            background: linear-gradient(to right, #3498db, #2ecc71);
+            width: 0%;
+            transition: width 0.3s ease;
+        }
+        
+        .status {
+            display: flex;
+            justify-content: space-between;
+            margin-top: 5px;
+            color: #7f8c8d;
+            font-size: 0.9em;
+        }
+        
+        .memory-buttons {
+            display: flex;
+            justify-content: center;
+            gap: 10px;
+            margin-top: 15px;
+        }
+        
+        .memory-btn {
+            padding: 8px 15px;
+            border-radius: 20px;
+            font-size: 0.9em;
+        }
+        
+        .easy {
+            background-color: #2ecc71;
+            color: white;
+        }
+        
+        .medium {
+            background-color: #f39c12;
+            color: white;
+        }
+        
+        .hard {
+            background-color: #e74c3c;
+            color: white;
+        }
+        
+        .bookmark {
+            position: absolute;
+            top: 10px;
+            right: 10px;
+            color: #bdc3c7;
+            font-size: 1.5em;
+            cursor: pointer;
+        }
+        
+        .bookmark.active {
+            color: #f1c40f;
+        }
+        
+        @media (max-width: 600px) {
+            .container {
+                padding: 15px;
+            }
+            
+            .word {
+                font-size: 2em;
+            }
+            
+            .controls {
+                flex-direction: column;
+                gap: 10px;
+            }
+            
+            button {
+                width: 100%;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <header>
+            <h1>英语六级单词背诵</h1>
+            <p class="subtitle">提高记忆效率，轻松备战六级考试</p>
+        </header>
+        
+        <div class="word-container">
+            <div class="bookmark" id="bookmark">★</div>
+            <div class="word">abandon</div>
+            <div class="phonetic">/əˈbændən/</div>
+            <div class="meaning" id="meaning">
+                <p><strong>v.</strong> 放弃；抛弃；离弃</p>
+                <p class="example">She abandoned her car and continued on foot.</p>
+                <p class="example">她弃车步行。</p>
+            </div>
+            
+            <div class="memory-buttons">
+                <button class="memory-btn easy">简单</button>
+                <button class="memory-btn medium">一般</button>
+                <button class="memory-btn hard">困难</button>
+            </div>
+        </div>
+        
+        <div class="controls">
+            <button class="btn-prev" id="prevBtn">上一个</button>
+            <button class="btn-show" id="showBtn">显示释义</button>
+            <button class="btn-next" id="nextBtn">下一个</button>
+        </div>
+        
+        <div class="progress">
+            <div class="progress-bar" id="progressBar"></div>
+        </div>
+        <div class="status">
+            <span id="currentWord">1</span>
+            <span id="totalWords">/ 100</span>
+        </div>
+    </div>
+    
+    <script>
+        // 六级单词列表（扩充版）
+        const cet6Words = [
+            {
+                word: "abandon",
+                phonetic: "/əˈbændən/",
+                meaning: "<strong>v.</strong> 放弃；抛弃；离弃",
+                example: "She abandoned her car and continued on foot.",
+                translation: "她弃车步行。"
+            },
+            {
+                word: "abundant",
+                phonetic: "/əˈbʌndənt/",
+                meaning: "<strong>adj.</strong> 丰富的；充裕的；大量的",
+                example: "The region has abundant natural resources.",
+                translation: "该地区自然资源丰富。"
+            },
+            {
+                word: "accelerate",
+                phonetic: "/əkˈseləreɪt/",
+                meaning: "<strong>v.</strong> 加速；促进；加快",
+                example: "The car accelerated quickly to overtake the truck.",
+                translation: "汽车迅速加速超过了卡车。"
+            },
+            {
+                word: "accommodate",
+                phonetic: "/əˈkɒmədeɪt/",
+                meaning: "<strong>v.</strong> 容纳；提供住宿；使适应",
+                example: "The hotel can accommodate up to 500 guests.",
+                translation: "这家酒店可容纳多达500位客人。"
+            },
+            {
+                word: "accomplish",
+                phonetic: "/əˈkʌmplɪʃ/",
+                meaning: "<strong>v.</strong> 完成；实现；达到",
+                example: "She accomplished all her goals before the deadline.",
+                translation: "她在截止日期前完成了所有目标。"
+            },
+            {
+                word: "accumulate",
+                phonetic: "/əˈkjuːmjəleɪt/",
+                meaning: "<strong>v.</strong> 积累；积聚；堆积",
+                example: "He has accumulated a lot of experience in this field.",
+                translation: "他在这个领域积累了大量经验。"
+            },
+            {
+                word: "adequate",
+                phonetic: "/ˈædɪkwət/",
+                meaning: "<strong>adj.</strong> 足够的；适当的；胜任的",
+                example: "The food supplies are adequate for a week.",
+                translation: "食物供应足够维持一周。"
+            },
+            {
+                word: "adjacent",
+                phonetic: "/əˈdʒeɪsnt/",
+                meaning: "<strong>adj.</strong> 邻近的；毗连的；接近的",
+                example: "Our house is adjacent to the park.",
+                translation: "我们的房子紧邻公园。"
+            },
+            {
+                word: "advocate",
+                phonetic: "/ˈædvəkeɪt/",
+                meaning: "<strong>v.</strong> 提倡；拥护；主张 <strong>n.</strong> 拥护者；提倡者；律师",
+                example: "She advocates the use of renewable energy.",
+                translation: "她提倡使用可再生能源。"
+            },
+            {
+                word: "aesthetic",
+                phonetic: "/iːsˈθetɪk/",
+                meaning: "<strong>adj.</strong> 审美的；美学的；艺术的",
+                example: "The building has great aesthetic appeal.",
+                translation: "这座建筑具有很强的美感。"
+            },
+            {
+                word: "aggravate",
+                phonetic: "/ˈæɡrəveɪt/",
+                meaning: "<strong>v.</strong> 加重；使恶化；激怒",
+                example: "Stress can aggravate health problems.",
+                translation: "压力会加重健康问题。"
+            },
+            {
+                word: "allocate",
+                phonetic: "/ˈæləkeɪt/",
+                meaning: "<strong>v.</strong> 分配；分派；拨出",
+                example: "The government has allocated funds for education.",
+                translation: "政府已拨款用于教育。"
+            },
+            {
+                word: "ambiguous",
+                phonetic: "/æmˈbɪɡjuəs/",
+                meaning: "<strong>adj.</strong> 模糊的；不明确的；有歧义的",
+                example: "His answer was ambiguous and confusing.",
+                translation: "他的回答模棱两可，令人困惑。"
+            },
+            {
+                word: "analogy",
+                phonetic: "/əˈnælədʒi/",
+                meaning: "<strong>n.</strong> 类比；比喻；相似",
+                example: "He drew an analogy between the human brain and a computer.",
+                translation: "他把人脑比作电脑。"
+            },
+            {
+                word: "anonymous",
+                phonetic: "/əˈnɒnɪməs/",
+                meaning: "<strong>adj.</strong> 匿名的；无名的；不具名的",
+                example: "The donation was made by an anonymous benefactor.",
+                translation: "这笔捐款来自一位匿名捐赠者。"
+            },
+            {
+                word: "anticipate",
+                phonetic: "/ænˈtɪsɪpeɪt/",
+                meaning: "<strong>v.</strong> 预期；预料；预见",
+                example: "We anticipate a significant increase in sales next year.",
+                translation: "我们预计明年销售额将大幅增长。"
+            },
+            {
+                word: "arbitrary",
+                phonetic: "/ˈɑːbɪtrəri/",
+                meaning: "<strong>adj.</strong> 任意的；武断的；随心所欲的",
+                example: "The decision seems completely arbitrary.",
+                translation: "这个决定看起来完全是武断的。"
+            },
+            {
+                word: "articulate",
+                phonetic: "/ɑːˈtɪkjuleɪt/",
+                meaning: "<strong>v.</strong> 清晰地表达；明确说明 <strong>adj.</strong> 善于表达的；发音清晰的",
+                example: "She is very articulate and expresses her ideas clearly.",
+                translation: "她非常善于表达，能清晰地表达自己的想法。"
+            },
+            {
+                word: "assimilate",
+                phonetic: "/əˈsɪmɪleɪt/",
+                meaning: "<strong>v.</strong> 吸收；同化；理解",
+                example: "It takes time to assimilate new information.",
+                translation: "吸收新信息需要时间。"
+            },
+            {
+                word: "autonomous",
+                phonetic: "/ɔːˈtɒnəməs/",
+                meaning: "<strong>adj.</strong> 自治的；自主的；独立的",
+                example: "The company operates as an autonomous unit.",
+                translation: "该公司作为一个自主单位运营。"
+            }
+        ];
+        
+        let currentIndex = 0;
+        const totalWords = cet6Words.length;
+        
+        // DOM元素
+        const wordElement = document.querySelector('.word');
+        const phoneticElement = document.querySelector('.phonetic');
+        const meaningElement = document.getElementById('meaning');
+        const showBtn = document.getElementById('showBtn');
+        const nextBtn = document.getElementById('nextBtn');
+        const prevBtn = document.getElementById('prevBtn');
+        const progressBar = document.getElementById('progressBar');
+        const currentWordElement = document.getElementById('currentWord');
+        const totalWordsElement = document.getElementById('totalWords');
+        const bookmarkElement = document.getElementById('bookmark');
+        
+        // 更新单词显示
+        function updateWord() {
+            const currentWord = cet6Words[currentIndex];
+            wordElement.textContent = currentWord.word;
+            phoneticElement.textContent = currentWord.phonetic;
+            meaningElement.innerHTML = `<p>${currentWord.meaning}</p>
+                                       <p class="example">${currentWord.example}</p>
+                                       <p class="example">${currentWord.translation}</p>`;
+            meaningElement.classList.remove('show');
+            
+            // 更新进度
+            progressBar.style.width = `${((currentIndex + 1) / totalWords) * 100}%`;
+            currentWordElement.textContent = currentIndex + 1;
+            totalWordsElement.textContent = `/ ${totalWords}`;
+            
+            // 重置显示按钮文本
+            showBtn.textContent = '显示释义';
+        }
+        
+        // 初始化
+        updateWord();
+        totalWordsElement.textContent = `/ ${totalWords}`;
+        
+        // 事件监听
+        showBtn.addEventListener('click', () => {
+            meaningElement.classList.toggle('show');
+            showBtn.textContent = meaningElement.classList.contains('show') ? '隐藏释义' : '显示释义';
+        });
+        
+        nextBtn.addEventListener('click', () => {
+            if (currentIndex < totalWords - 1) {
+                currentIndex++;
+                updateWord();
+            }
+        });
+        
+        prevBtn.addEventListener('click', () => {
+            if (currentIndex > 0) {
+                currentIndex--;
+                updateWord();
+            }
+        });
+        
+        bookmarkElement.addEventListener('click', () => {
+            bookmarkElement.classList.toggle('active');
+        });
+        
+        // 记忆状态按钮
+        const memoryButtons = document.querySelectorAll('.memory-btn');
+        memoryButtons.forEach(button => {
+            button.addEventListener('click', () => {
+                // 这里可以添加记忆状态的逻辑
+                setTimeout(() => {
+                    if (currentIndex < totalWords - 1) {
+                        currentIndex++;
+                        updateWord();
+                    }
+                }, 300);
+            });
+        });
+        
+        // 键盘快捷键
+        document.addEventListener('keydown', (e) => {
+            if (e.key === 'ArrowRight') {
+                nextBtn.click();
+            } else if (e.key === 'ArrowLeft') {
+                prevBtn.click();
+            } else if (e.key === ' ') {
+                showBtn.click();
+            }
+        });
+    </script>
+</body>
+</html>
