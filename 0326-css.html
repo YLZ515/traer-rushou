@@ -1,0 +1,1005 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>CSS与HTML基础教程</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+    <style>
+        /* 全局样式 */
+        :root {
+            --primary-color: #4361ee;
+            --secondary-color: #3a0ca3;
+            --accent-color: #f72585;
+            --light-color: #f8f9fa;
+            --dark-color: #212529;
+            --success-color: #4cc9f0;
+            --warning-color: #f8961e;
+            --info-color: #90be6d;
+            --border-radius: 8px;
+            --box-shadow: 0 5px 15px rgba(0, 0, 0, 0.1);
+            --transition: all 0.3s ease;
+        }
+        
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+        
+        body {
+            font-family: 'Microsoft YaHei', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, 'Open Sans', sans-serif;
+            background-color: #f5f7fa;
+            color: var(--dark-color);
+            line-height: 1.6;
+            min-height: 100vh;
+        }
+        
+        /* 导航栏 */
+        .navbar {
+            background: linear-gradient(135deg, var(--primary-color), var(--secondary-color));
+            color: white;
+            padding: 1rem 2rem;
+            position: sticky;
+            top: 0;
+            z-index: 1000;
+            box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+        }
+        
+        .navbar-container {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            max-width: 1200px;
+            margin: 0 auto;
+        }
+        
+        .logo {
+            font-size: 1.5rem;
+            font-weight: bold;
+            display: flex;
+            align-items: center;
+        }
+        
+        .logo i {
+            margin-right: 10px;
+            font-size: 1.8rem;
+        }
+        
+        .nav-links {
+            display: flex;
+            list-style: none;
+        }
+        
+        .nav-links li {
+            margin-left: 1.5rem;
+        }
+        
+        .nav-links a {
+            color: white;
+            text-decoration: none;
+            font-weight: 500;
+            transition: var(--transition);
+            padding: 0.5rem 0.8rem;
+            border-radius: var(--border-radius);
+        }
+        
+        .nav-links a:hover {
+            background-color: rgba(255, 255, 255, 0.2);
+        }
+        
+        .nav-links a.active {
+            background-color: rgba(255, 255, 255, 0.3);
+        }
+        
+        /* 英雄区域 */
+        .hero {
+            background: linear-gradient(rgba(0, 0, 0, 0.7), rgba(0, 0, 0, 0.7)), url('https://images.unsplash.com/photo-1517694712202-14dd9538aa97');
+            background-size: cover;
+            background-position: center;
+            color: white;
+            text-align: center;
+            padding: 5rem 2rem;
+        }
+        
+        .hero h1 {
+            font-size: 3rem;
+            margin-bottom: 1rem;
+            animation: fadeInDown 1s ease-out;
+        }
+        
+        .hero p {
+            font-size: 1.2rem;
+            max-width: 700px;
+            margin: 0 auto 2rem;
+            animation: fadeInUp 1s ease-out;
+        }
+        
+        @keyframes fadeInDown {
+            from {
+                opacity: 0;
+                transform: translateY(-30px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+        
+        @keyframes fadeInUp {
+            from {
+                opacity: 0;
+                transform: translateY(30px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+        
+        /* 主要内容区域 */
+        .container {
+            max-width: 1200px;
+            margin: 2rem auto;
+            padding: 0 2rem;
+        }
+        
+        .section {
+            background-color: white;
+            border-radius: var(--border-radius);
+            box-shadow: var(--box-shadow);
+            margin-bottom: 2rem;
+            overflow: hidden;
+            transition: var(--transition);
+        }
+        
+        .section:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 10px 25px rgba(0, 0, 0, 0.15);
+        }
+        
+        .section-header {
+            background: linear-gradient(to right, var(--primary-color), var(--secondary-color));
+            color: white;
+            padding: 1.5rem;
+            position: relative;
+        }
+        
+        .section-header h2 {
+            margin: 0;
+            font-size: 1.8rem;
+        }
+        
+        .section-header .icon {
+            position: absolute;
+            right: 1.5rem;
+            top: 50%;
+            transform: translateY(-50%);
+            font-size: 2rem;
+            opacity: 0.7;
+        }
+        
+        .section-content {
+            padding: 2rem;
+        }
+        
+        /* 卡片样式 */
+        .cards {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 1.5rem;
+            margin-top: 1.5rem;
+        }
+        
+        .card {
+            background-color: white;
+            border-radius: var(--border-radius);
+            box-shadow: var(--box-shadow);
+            overflow: hidden;
+            transition: var(--transition);
+        }
+        
+        .card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 10px 20px rgba(0, 0, 0, 0.15);
+        }
+        
+        .card-header {
+            background-color: var(--primary-color);
+            color: white;
+            padding: 1rem;
+            font-weight: bold;
+        }
+        
+        .card-body {
+            padding: 1.5rem;
+        }
+        
+        /* 代码块样式 */
+        .code-block {
+            background-color: #f8f9fa;
+            border-left: 4px solid var(--accent-color);
+            padding: 1rem;
+            margin: 1rem 0;
+            font-family: Consolas, Monaco, 'Andale Mono', monospace;
+            overflow-x: auto;
+            border-radius: 0 var(--border-radius) var(--border-radius) 0;
+        }
+        
+        /* 盒模型演示 */
+        .box-demo {
+            margin: 2rem 0;
+            padding: 1rem;
+            background-color: #f8f9fa;
+            border-radius: var(--border-radius);
+        }
+        
+        .demo-title {
+            font-weight: bold;
+            color: var(--primary-color);
+            margin-bottom: 1rem;
+            display: flex;
+            align-items: center;
+        }
+        
+        .demo-title i {
+            margin-right: 0.5rem;
+        }
+        
+        /* 盒模型样式 */
+        .basic-box, .padding-box, .border-box, .complete-box, .border-box-sizing {
+            background-color: var(--success-color);
+            margin: 1.5rem auto;
+            width: 200px;
+            height: 100px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: white;
+            font-weight: bold;
+            transition: var(--transition);
+        }
+        
+        .padding-box {
+            padding: 20px;
+            background-color: var(--info-color);
+        }
+        
+        .border-box {
+            border: 5px solid var(--accent-color);
+            background-color: var(--warning-color);
+        }
+        
+        .complete-box {
+            padding: 20px;
+            border: 5px solid var(--accent-color);
+            background-color: var(--primary-color);
+        }
+        
+        .border-box-sizing {
+            box-sizing: border-box;
+            padding: 20px;
+            border: 5px solid var(--accent-color);
+            background-color: var(--secondary-color);
+        }
+        
+        /* 可视化盒模型 */
+        .visual-box-container {
+            position: relative;
+            width: 300px;
+            height: 200px;
+            margin: 4rem auto;
+        }
+        
+        .visual-margin {
+            position: absolute;
+            width: 100%;
+            height: 100%;
+            background-color: rgba(248, 150, 30, 0.2);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            z-index: 1;
+        }
+        
+        .visual-border {
+            position: absolute;
+            width: calc(100% - 40px);
+            height: calc(100% - 40px);
+            top: 20px;
+            left: 20px;
+            background-color: rgba(247, 37, 133, 0.7);
+            z-index: 2;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+        
+        .visual-padding {
+            position: absolute;
+            width: calc(100% - 80px);
+            height: calc(100% - 80px);
+            top: 40px;
+            left: 40px;
+            background-color: rgba(67, 97, 238, 0.5);
+            z-index: 3;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+        
+        .visual-content {
+            position: absolute;
+            width: calc(100% - 120px);
+            height: calc(100% - 120px);
+            top: 60px;
+            left: 60px;
+            background-color: rgba(76, 201, 240, 0.9);
+            z-index: 4;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: white;
+            font-weight: bold;
+        }
+        
+        /* Display属性演示 */
+        .display-block, .display-inline, .display-inline-block {
+            transition: var(--transition);
+        }
+        
+        .display-block {
+            display: block;
+            width: 200px;
+            background-color: var(--primary-color);
+            padding: 10px;
+            margin: 10px 0;
+            color: white;
+            border-radius: var(--border-radius);
+        }
+        
+        .display-inline {
+            display: inline;
+            background-color: var(--accent-color);
+            padding: 5px 10px;
+            color: white;
+            border-radius: var(--border-radius);
+        }
+        
+        .display-inline-block {
+            display: inline-block;
+            width: 150px;
+            background-color: var(--info-color);
+            padding: 10px;
+            margin: 5px;
+            color: white;
+            border-radius: var(--border-radius);
+            text-align: center;
+        }
+        
+        /* Position属性演示 */
+        .position-demo {
+            position: relative;
+            height: 150px;
+            background-color: #f8f9fa;
+            border: 1px solid #ddd;
+            margin: 2rem 0;
+            padding: 10px;
+            border-radius: var(--border-radius);
+        }
+        
+        .position-static, .position-relative, .position-absolute {
+            padding: 10px;
+            border-radius: var(--border-radius);
+            color: white;
+            font-weight: bold;
+        }
+        
+        .position-static {
+            position: static;
+            background-color: var(--primary-color);
+            margin: 10px 0;
+        }
+        
+        .position-relative {
+            position: relative;
+            left: 20px;
+            top: 10px;
+            background-color: var(--accent-color);
+            margin: 10px 0;
+        }
+        
+        .position-absolute {
+            position: absolute;
+            top: 20px;
+            right: 20px;
+            background-color: var(--info-color);
+        }
+        
+        .position-fixed {
+            position: fixed;
+            bottom: 20px;
+            right: 20px;
+            background-color: var(--secondary-color);
+            color: white;
+            padding: 15px;
+            border-radius: 50%;
+            box-shadow: var(--box-shadow);
+            z-index: 1000;
+            cursor: pointer;
+            transition: var(--transition);
+            width: 50px;
+            height: 50px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+        
+        .position-fixed:hover {
+            transform: scale(1.1);
+        }
+        
+        /* 表格样式 */
+        .styled-table {
+            width: 100%;
+            border-collapse: collapse;
+            margin: 1.5rem 0;
+            border-radius: var(--border-radius);
+            overflow: hidden;
+            box-shadow: var(--box-shadow);
+        }
+        
+        .styled-table thead tr {
+            background-color: var(--primary-color);
+            color: white;
+            text-align: left;
+        }
+        
+        .styled-table th,
+        .styled-table td {
+            padding: 12px 15px;
+        }
+        
+        .styled-table tbody tr {
+            border-bottom: 1px solid #dddddd;
+        }
+        
+        .styled-table tbody tr:nth-of-type(even) {
+            background-color: #f3f3f3;
+        }
+        
+        .styled-table tbody tr:last-of-type {
+            border-bottom: 2px solid var(--primary-color);
+        }
+        
+        /* 页脚 */
+        footer {
+            background: linear-gradient(135deg, var(--primary-color), var(--secondary-color));
+            color: white;
+            text-align: center;
+            padding: 2rem;
+            margin-top: 3rem;
+        }
+        
+        .footer-content {
+            max-width: 1200px;
+            margin: 0 auto;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+        }
+        
+        .social-links {
+            display: flex;
+            margin: 1rem 0;
+        }
+        
+        .social-links a {
+            color: white;
+            margin: 0 10px;
+            font-size: 1.5rem;
+            transition: var(--transition);
+        }
+        
+        .social-links a:hover {
+            transform: translateY(-3px);
+            color: var(--accent-color);
+        }
+        
+        /* 响应式设计 */
+        @media (max-width: 768px) {
+            .navbar-container {
+                flex-direction: column;
+                align-items: flex-start;
+            }
+            
+            .nav-links {
+                margin-top: 1rem;
+                flex-direction: column;
+                width: 100%;
+            }
+            
+            .nav-links li {
+                margin: 0.5rem 0;
+                margin-left: 0;
+            }
+            
+            .hero h1 {
+                font-size: 2rem;
+            }
+            
+            .cards {
+                grid-template-columns: 1fr;
+            }
+        }
+    </style>
+</head>
+<body>
+    <!-- 导航栏 -->
+    <nav class="navbar">
+        <div class="navbar-container">
+            <div class="logo">
+                <i class="fas fa-code"></i>
+                <span>CSS & HTML 基础教程</span>
+            </div>
+            <ul class="nav-links">
+                <li><a href="#" class="active">首页</a></li>
+                <li><a href="#box-model">盒模型</a></li>
+                <li><a href="#display">显示方式</a></li>
+                <li><a href="#position">定位</a></li>
+            </ul>
+        </div>
+    </nav>
+    
+    <!-- 英雄区域 -->
+    <div class="hero">
+        <h1>探索 CSS 与 HTML 的奇妙世界</h1>
+        <p>从基础盒模型到高级布局技术，掌握前端开发的核心概念</p>
+    </div>
+    
+    <!-- 主要内容 -->
+    <div class="container">
+        <!-- 盒模型部分 -->
+        <section id="box-model" class="section">
+            <div class="section-header">
+                <h2>CSS盒模型详解</h2>
+                <div class="icon"><i class="fas fa-box"></i></div>
+            </div>
+            <div class="section-content">
+                <p>CSS盒模型是网页布局的基础，每个HTML元素都被视为一个矩形盒子。盒模型由四个部分组成：内容(content)、内边距(padding)、边框(border)和外边距(margin)。</p>
+                
+                <div class="box-demo">
+                    <div class="demo-title"><i class="fas fa-ruler-combined"></i> 1. 设置盒子大小（宽度和高度）</div>
+                    <p>首先，我们设置盒子的基本尺寸，即宽度(width)和高度(height)：</p>
+                    <div class="code-block">
+                        .basic-box {<br>
+                        &nbsp;&nbsp;width: 200px;<br>
+                        &nbsp;&nbsp;height: 100px;<br>
+                        &nbsp;&nbsp;background-color: #4cc9f0;<br>
+                        }
+                    </div>
+                    <div class="basic-box">内容区域</div>
+                    <p>这是一个基础的盒子，只设置了宽度和高度。</p>
+                </div>
+                
+                <div class="box-demo">
+                    <div class="demo-title"><i class="fas fa-expand"></i> 2. 设置内边距(padding)</div>
+                    <p>内边距是内容区域与边框之间的空间：</p>
+                    <div class="code-block">
+                        .padding-box {<br>
+                        &nbsp;&nbsp;width: 200px;<br>
+                        &nbsp;&nbsp;height: 100px;<br>
+                        &nbsp;&nbsp;background-color: #90be6d;<br>
+                        &nbsp;&nbsp;padding: 20px; /* 四个方向都添加20px的内边距 */<br>
+                        }
+                    </div>
+                    <div class="padding-box">带内边距的盒子</div>
+                    <p>添加内边距后，盒子的实际占用空间变大了。现在盒子的总宽度是 200px + 20px(左内边距) + 20px(右内边距) = 240px。</p>
+                </div>
+                
+                <div class="box-demo">
+                    <div class="demo-title"><i class="fas fa-border-style"></i> 3. 设置边框(border)</div>
+                    <p>边框围绕在内边距和内容外部：</p>
+                    <div class="code-block">
+                        .border-box {<br>
+                        &nbsp;&nbsp;width: 200px;<br>
+                        &nbsp;&nbsp;height: 100px;<br>
+                        &nbsp;&nbsp;background-color: #f8961e;<br>
+                        &nbsp;&nbsp;border: 5px solid #f72585; /* 添加5px宽的实线边框 */<br>
+                        }
+                    </div>
+                    <div class="border-box">带边框的盒子</div>
+                    <p>添加边框后，盒子的实际占用空间进一步增加。现在盒子的总宽度是 200px + 5px(左边框) + 5px(右边框) = 210px。</p>
+                </div>
+                
+                <div class="box-demo">
+                    <div class="demo-title"><i class="fas fa-external-link-alt"></i> 4. 设置外边距(margin)</div>
+                    <p>外边距是盒子与其他元素之间的空间：</p>
+                    <div class="code-block">
+                        .complete-box {<br>
+                        &nbsp;&nbsp;width: 200px;<br>
+                        &nbsp;&nbsp;height: 100px;<br>
+                        &nbsp;&nbsp;background-color: #4361ee;<br>
+                        &nbsp;&nbsp;padding: 20px;<br>
+                        &nbsp;&nbsp;border: 5px solid #f72585;<br>
+                        &nbsp;&nbsp;margin: 20px auto; /* 上下20px，左右自动居中 */<br>
+                        }
+                    </div>
+                    <div class="complete-box">完整盒模型</div>
+                    <p>完整的盒模型包括内容、内边距、边框和外边距。现在盒子的总宽度是 200px(内容) + 40px(内边距) + 10px(边框) = 250px，再加上左右的外边距。</p>
+                </div>
+                
+                <div class="box-demo">
+                    <div class="demo-title"><i class="fas fa-compress-alt"></i> 5. 使用box-sizing改变盒模型计算方式</div>
+                    <p>默认情况下，width和height只包括内容区域(content-box)。使用box-sizing: border-box可以改变这一行为：</p>
+                    <div class="code-block">
+                        .border-box-sizing {<br>
+                        &nbsp;&nbsp;box-sizing: border-box; /* 改变盒模型计算方式 */<br>
+                        &nbsp;&nbsp;width: 200px;<br>
+                        &nbsp;&nbsp;height: 100px;<br>
+                        &nbsp;&nbsp;padding: 20px;<br>
+                        &nbsp;&nbsp;border: 5px solid #f72585;<br>
+                        }
+                    </div>
+                    <div class="border-box-sizing">border-box盒模型</div>
+                    <p>使用border-box后，width和height包含了padding和border。所以即使添加了内边距和边框，盒子的总宽度仍然是200px。</p>
+                </div>
+                
+                <div class="box-demo">
+                    <div class="demo-title"><i class="fas fa-layer-group"></i> 6. 盒模型可视化</div>
+                    <p>下面是一个可视化的盒模型，展示了各个部分：</p>
+                    <div class="visual-box-container">
+                        <div class="visual-margin">Margin</div>
+                        <div class="visual-border">Border</div>
+                        <div class="visual-padding">Padding</div>
+                        <div class="visual-content">Content</div>
+                    </div>
+                    <p>这个示例清晰地展示了盒模型的四个组成部分：内容(content)、内边距(padding)、边框(border)和外边距(margin)。</p>
+                </div>
+            </div>
+        </section>
+        
+        <!-- Display属性部分 -->
+        <section id="display" class="section">
+            <div class="section-header">
+                <h2>CSS信息流与显示方式</h2>
+                <div class="icon"><i class="fas fa-desktop"></i></div>
+            </div>
+            <div class="section-content">
+                <p>CSS中的每个元素都有一个默认的display属性值，它决定了元素如何在页面上显示。通过修改display属性，我们可以改变元素的显示方式。</p>
+                
+                <div class="box-demo">
+                    <div class="demo-title"><i class="fas fa-square"></i> 1. display: block（块级元素）</div>
+                    <p>块级元素会占据一整行，可以设置宽度和高度。</p>
+                    <div class="code-block">
+                        .display-block {<br>
+                        &nbsp;&nbsp;display: block;<br>
+                        &nbsp;&nbsp;width: 200px;<br>
+                        &nbsp;&nbsp;background-color: #4361ee;<br>
+                        &nbsp;&nbsp;padding: 10px;<br>
+                        }
+                    </div>
+                    <div class="display-block">这是一个块级元素</div>
+                    <div class="display-block">这是另一个块级元素</div>
+                    
+                    <table class="styled-table">
+                        <thead>
+                            <tr>
+                                <th>常见块级元素</th>
+                                <th>描述</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr>
+                                <td>&lt;div&gt;</td>
+                                <td>通用块级容器</td>
+                            </tr>
+                            <tr>
+                                <td>&lt;p&gt;</td>
+                                <td>段落</td>
+                            </tr>
+                            <tr>
+                                <td>&lt;h1&gt;-&lt;h6&gt;</td>
+                                <td>标题</td>
+                            </tr>
+                            <tr>
+                                <td>&lt;ul&gt;, &lt;ol&gt;, &lt;li&gt;</td>
+                                <td>列表元素</td>
+                            </tr>
+                            <tr>
+                                <td>&lt;section&gt;, &lt;article&gt;</td>
+                                <td>语义化区块</td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+                
+                <div class="box-demo">
+                    <div class="demo-title"><i class="fas fa-text-width"></i> 2. display: inline（内联元素）</div>
+                    <p>内联元素不会独占一行，宽度和高度由内容决定，无法直接设置。</p>
+                    <div class="code-block">
+                        .display-inline {<br>
+                        &nbsp;&nbsp;display: inline;<br>
+                        &nbsp;&nbsp;/* width在inline元素上无效 */<br>
+                        &nbsp;&nbsp;background-color: #f72585;<br>
+                        &nbsp;&nbsp;padding: 5px;<br>
+                        }
+                    </div>
+                    <p>这是一段文本，其中包含<span class="display-inline">内联元素一</span>和<span class="display-inline">内联元素二</span>，它们不会独占一行。</p>
+                    
+                    <table class="styled-table">
+                        <thead>
+                            <tr>
+                                <th>常见内联元素</th>
+                                <th>描述</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr>
+                                <td>&lt;span&gt;</td>
+                                <td>通用内联容器</td>
+                            </tr>
+                            <tr>
+                                <td>&lt;a&gt;</td>
+                                <td>超链接</td>
+                            </tr>
+                            <tr>
+                                <td>&lt;strong&gt;, &lt;em&gt;</td>
+                                <td>强调文本</td>
+                            </tr>
+                            <tr>
+                                <td>&lt;img&gt;</td>
+                                <td>图片</td>
+                            </tr>
+                            <tr>
+                                <td>&lt;button&gt;</td>
+                                <td>按钮</td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+                
+                <div class="box-demo">
+                    <div class="demo-title"><i class="fas fa-th-large"></i> 3. display: inline-block（内联块元素）</div>
+                    <p>结合了inline和block的特性，可以设置宽高，但不会独占一行。</p>
+                    <div class="code-block">
+                        .display-inline-block {<br>
+                        &nbsp;&nbsp;display: inline-block;<br>
+                        &nbsp;&nbsp;width: 150px;<br>
+                        &nbsp;&nbsp;background-color: #90be6d;<br>
+                        &nbsp;&nbsp;padding: 10px;<br>
+                        &nbsp;&nbsp;margin: 5px;<br>
+                        }
+                    </div>
+                    <div class="display-inline-block">内联块元素1</div>
+                    <div class="display-inline-block">内联块元素2</div>
+                    <div class="display-inline-block">内联块元素3</div>
+                </div>
+            </div>
+        </section>
+        
+        <!-- Position属性部分 -->
+        <section id="position" class="section">
+            <div class="section-header">
+                <h2>CSS定位</h2>
+                <div class="icon"><i class="fas fa-map-marker-alt"></i></div>
+            </div>
+            <div class="section-content">
+                <p>position属性用于指定元素在页面上的定位方式。结合top、right、bottom、left属性，可以精确控制元素的位置。</p>
+                
+                <div class="box-demo">
+                    <div class="demo-title"><i class="fas fa-thumbtack"></i> 1. position: static（静态定位）</div>
+                    <p>默认值，元素按照正常文档流进行布局。top、right、bottom、left属性无效。</p>
+                    <div class="code-block">
+                        .position-static {<br>
+                        &nbsp;&nbsp;position: static;<br>
+                        &nbsp;&nbsp;/* top, right, bottom, left属性在static定位中无效 */<br>
+                        &nbsp;&nbsp;background-color: #4361ee;<br>
+                        &nbsp;&nbsp;padding: 10px;<br>
+                        }
+                    </div>
+                    <div class="position-static">这是静态定位的元素</div>
+                    <p>静态定位是所有元素的默认定位方式，元素按照正常的文档流进行排列。</p>
+                </div>
+                
+                <div class="box-demo">
+                    <div class="demo-title"><i class="fas fa-arrows-alt"></i> 2. position: relative（相对定位）</div>
+                    <p>相对定位，相对于元素在正常文档流中的位置进行偏移。</p>
+                    <div class="code-block">
+                        .position-relative {<br>
+                        &nbsp;&nbsp;position: relative;<br>
+                        &nbsp;&nbsp;left: 20px;<br>
+                        &nbsp;&nbsp;top: 10px;<br>
+                        &nbsp;&nbsp;background-color: #f72585;<br>
+                        &nbsp;&nbsp;padding: 10px;<br>
+                        }
+                    </div>
+                    <div class="position-relative">这是相对定位的元素（向右偏移20px，向下偏移10px）</div>
+                    <p>相对定位会保留元素在文档流中的位置，其他元素不会受到影响。</p>
+                </div>
+                
+                <div class="box-demo">
+                    <div class="demo-title"><i class="fas fa-crosshairs"></i> 3. position: absolute（绝对定位）</div>
+                    <p>绝对定位，相对于最近的已定位祖先元素（position不为static）进行定位。如果没有已定位的祖先元素，则相对于初始包含块（通常是viewport）。</p>
+                    <div class="code-block">
+                        .position-absolute {<br>
+                        &nbsp;&nbsp;position: absolute;<br>
+                        &nbsp;&nbsp;top: 20px;<br>
+                        &nbsp;&nbsp;right: 20px;<br>
+                        &nbsp;&nbsp;background-color: #90be6d;<br>
+                        &nbsp;&nbsp;padding: 10px;<br>
+                        }
+                    </div>
+                    <div class="position-demo">
+                        <div class="position-absolute">这是绝对定位的元素</div>
+                        这是包含绝对定位元素的容器（position: relative）
+                    </div>
+                    <p>绝对定位的元素会脱离正常文档流，不占据空间，可能会与其他元素重叠。</p>
+                </div>
+                
+                <div class="box-demo">
+                    <div class="demo-title"><i class="fas fa-thumbtack"></i> 4. position: fixed（固定定位）</div>
+                    <p>固定定位，相对于浏览器窗口进行定位，即使页面滚动，元素位置也不会改变。</p>
+                    <div class="code-block">
+                        .position-fixed {<br>
+                        &nbsp;&nbsp;position: fixed;<br>
+                        &nbsp;&nbsp;bottom: 20px;<br>
+                        &nbsp;&nbsp;right: 20px;<br>
+                        &nbsp;&nbsp;background-color: #3a0ca3;<br>
+                        &nbsp;&nbsp;padding: 15px;<br>
+                        &nbsp;&nbsp;border-radius: 50%;<br>
+                        }
+                    </div>
+                    <p>查看页面右下角的固定定位元素（回到顶部按钮）。固定定位的元素会脱离文档流，并且不会随页面滚动而移动。</p>
+                </div>
+                
+                <div class="box-demo">
+                    <div class="demo-title"><i class="fas fa-magnet"></i> 5. position: sticky（粘性定位）</div>
+                    <p>粘性定位，基于用户的滚动位置来定位。它的行为就像relative，直到滚动到特定阈值点，然后变成fixed。</p>
+                    <div class="code-block">
+                        .position-sticky {<br>
+                        &nbsp;&nbsp;position: sticky;<br>
+                        &nbsp;&nbsp;top: 10px;<br>
+                        &nbsp;&nbsp;background-color: #4cc9f0;<br>
+                        &nbsp;&nbsp;padding: 10px;<br>
+                        }
+                    </div>
+                    <div style="height: 200px; overflow-y: auto; border: 1px solid #ddd; padding: 10px; border-radius: var(--border-radius);">
+                        <p>向下滚动查看粘性定位效果：</p>
+                        <div style="height: 50px;"></div>
+                        <div style="position: sticky; top: 10px; background-color: #4cc9f0; padding: 10px; border-radius: var(--border-radius); color: white; font-weight: bold;">
+                            这是粘性定位的元素
+                        </div>
+                        <div style="height: 200px;"></div>
+                        <p>滚动结束</p>
+                    </div>
+                    <p>粘性定位在滚动到达阈值之前表现为相对定位，之后表现为固定定位。常用于导航栏和标题固定等场景。</p>
+                </div>
+                
+                <div class="box-demo">
+                    <div class="demo-title"><i class="fas fa-layer-group"></i> 6. z-index（层叠顺序）</div>
+                    <p>z-index属性用于控制定位元素的层叠顺序，值越大，元素显示在越上层。</p>
+                    <div class="code-block">
+                        .element-1 {<br>
+                        &nbsp;&nbsp;position: absolute;<br>
+                        &nbsp;&nbsp;z-index: 1;<br>
+                        }<br><br>
+                        .element-2 {<br>
+                        &nbsp;&nbsp;position: absolute;<br>
+                        &nbsp;&nbsp;z-index: 2; /* 会显示在element-1上面 */<br>
+                        }
+                    </div>
+                    <div style="position: relative; height: 150px; margin-top: 20px;">
+                        <div style="position: absolute; width: 100px; height: 100px; background-color: #4361ee; z-index: 1; left: 20px; top: 20px; border-radius: var(--border-radius);"></div>
+                        <div style="position: absolute; width: 100px; height: 100px; background-color: #f72585; z-index: 2; left: 60px; top: 40px; border-radius: var(--border-radius);"></div>
+                        <div style="position: absolute; width: 100px; height: 100px; background-color: #90be6d; z-index: 3; left: 100px; top: 60px; border-radius: var(--border-radius);"></div>
+                    </div>
+                    <p>注意：z-index只对定位元素（position值不为static的元素）有效。</p>
+                </div>
+            </div>
+        </section>
+        
+        <!-- 新增：Flex布局部分 -->
+        <section id="flex" class="section">
+            <div class="section-header">
+                <h2>Flex弹性布局</h2>
+                <div class="icon"><i class="fas fa-grip-horizontal"></i></div>
+            </div>
+            <div class="section-content">
+                <p>Flexbox（弹性盒子）是一种一维布局模型，它使得元素在一个方向上（行或列）的排列更加灵活和高效。</p>
+                
+                <div class="box-demo">
+                    <div class="demo-title"><i class="fas fa-th-list"></i> 基本的Flex容器</div>
+                    <div class="code-block">
+                        .flex-container {<br>
+                        &nbsp;&nbsp;display: flex;<br>
+                        &nbsp;&nbsp;background-color: #f8f9fa;<br>
+                        &nbsp;&nbsp;padding: 10px;<br>
+                        }
+                    </div>
+                    <div style="display: flex; background-color: #f8f9fa; padding: 10px; border-radius: var(--border-radius);">
+                        <div style="background-color: #4361ee; padding: 20px; margin: 5px; color: white; border-radius: var(--border-radius);">项目1</div>
+                        <div style="background-color: #f72585; padding: 20px; margin: 5px; color: white; border-radius: var(--border-radius);">项目2</div>
+                        <div style="background-color: #90be6d; padding: 20px; margin: 5px; color: white; border-radius: var(--border-radius);">项目3</div>
+                    </div>
+                    <p>默认情况下，flex项目会在一行内排列。</p>
+                </div>
+                
+                <div class="box-demo">
+                    <div class="demo-title"><i class="fas fa-arrows-alt-h"></i> justify-content（主轴对齐）</div>
+                    <div class="code-block">
+                        .flex-container {<br>
+                        &nbsp;&nbsp;display: flex;<br>
+                        &nbsp;&nbsp;justify-content: space-between; /* 项目之间平均分配空间 */<br>
+                        }
+                    </div>
+                    <div style="display: flex; background-color: #f8f9fa; padding: 10px; border-radius: var(--border-radius); justify-content: space-between; margin-bottom: 10px;">
+                        <div style="background-color: #4361ee; padding: 20px; color: white; border-radius: var(--border-radius);">项目1</div>
+                        <div style="background-color: #f72585; padding: 20px; color: white; border-radius: var(--border-radius);">项目2</div>
+                        <div style="background-color: #90be6d; padding: 20px; color: white; border-radius: var(--border-radius);">项目3</div>
+                    </div>
+                    <p>justify-content控制项目在主轴（默认是水平方向）上的对齐方式。</p>
+                </div>
+                
+                <div class="box-demo">
+                    <div class="demo-title"><i class="fas fa-arrows-alt-v"></i> align-items（交叉轴对齐）</div>
+                    <div class="code-block">
+                        .flex-container {<br>
+                        &nbsp;&nbsp;display: flex;<br>
+                        &nbsp;&nbsp;height: 100px;<br>
+                        &nbsp;&nbsp;align-items: center; /* 项目在交叉轴上居中对齐 */<br>
+                        }
+                    </div>
+                    <div style="display: flex; background-color: #f8f9fa; padding: 10px; border-radius: var(--border-radius); height: 100px; align-items: center;">
+                        <div style="background-color: #4361ee; padding: 20px; margin: 5px; color: white; border-radius: var(--border-radius);">项目1</div>
+                        <div style="background-color: #f72585; padding: 20px; margin: 5px; color: white; border-radius: var(--border-radius);">项目2</div>
+                        <div style="background-color: #90be6d; padding: 20px; margin: 5px; color: white; border-radius: var(--border-radius);">项目3</div>
+                    </div>
+                    <p>align-items控制项目在交叉轴（默认是垂直方向）上的对齐方式。</p>
+                </div>
+            </div>
+        </section>
+    </div>
+    
+    <!-- 页脚 -->
+    <footer>
+        <div class="footer-content">
+            <h3>CSS & HTML 基础教程</h3>
+            <p>学习前端开发的第一步</p>
+            <div class="social-links">
+                <a href="#"><i class="fab fa-github"></i></a>
+                <a href="#"><i class="fab fa-weixin"></i></a>
+                <a href="#"><i class="fab fa-weibo"></i></a>
+                <a href="#"><i class="fab fa-qq"></i></a>
+            </div>
+            <p>&copy; 2023 CSS & HTML 基础教程. 保留所有权利.</p>
+        </div>
+    </footer>
+    
+    <!-- 回到顶部按钮 -->
+    <a href="#" class="position-fixed" title="回到顶部">
+        <i class="fas fa-arrow-up"></i>
+    </a>
+    
+    <script>
+        // 平滑滚动效果
+        document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+            anchor.addEventListener('click', function (e) {
+                e.preventDefault();
+                
+                const targetId = this.getAttribute('href');
+                if (targetId === '#') {
+                    window.scrollTo({
+                        top: 0,
+                        behavior: 'smooth'
+                    });
+                } else {
+                    document.querySelector(targetId).scrollIntoView({
+                        behavior: 'smooth'
+                    });
+                }
+            });
+        });
+    </script>
+</body>
+</html>
