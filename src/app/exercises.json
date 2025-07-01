@@ -1,0 +1,106 @@
+[
+  {
+    "id": 1,
+    "title": "🤖 QAnything 智能问答小助手",
+    "description": "通过 iframe 嵌入外部智能问答服务，让我们的网站也能和AI聊天啦！展示第三方服务的集成能力，就像给网站装了一个聪明的大脑 🧠",
+    "link": "/practice/embed-demo",
+    "imageUrl": "/practice/images/生成可爱图片 (1).png",
+    "tags": ["🤖 AI集成", "🔗 iframe", "💡 智能问答"]
+  },
+  {
+    "id": 2,
+    "title": "🎨 My App 创意小应用",
+    "description": "一个充满创意的 React 应用页面，展示组件化开发的魔法！就像搭积木一样，把各种组件组合成漂亮的应用 🏗️",
+    "link": "/practice/my-app",
+    "imageUrl": "/practice/images/生成可爱图片 (2).png",
+    "tags": ["⚛️ React", "🎯 入门", "🏗️ 组件化"]
+  },
+  {
+    "id": 3,
+    "title": "🎨 CSS 魔法练习 1",
+    "description": "基础 CSS 样式练习，学习如何用代码画出漂亮的页面！涵盖选择器和基本属性，就像学习绘画的基础技法 🖌️",
+    "link": "/practice/03-css-01",
+    "imageUrl": "/practice/images/生成可爱图片 (3).png",
+    "tags": ["🎨 CSS", "🔰 基础", "🎯 选择器"]
+  },
+  {
+    "id": 4,
+    "title": "📦 CSS 盒模型探险",
+    "description": "深入学习 CSS 盒模型和布局，理解元素是如何在页面上排列的！就像搭积木一样，每个元素都有自己的空间 📐",
+    "link": "/practice/03-css-02",
+    "imageUrl": "/practice/images/生成可爱图片.png",
+    "tags": ["📦 盒模型", "🎨 CSS", "📐 布局"]
+  },
+  {
+    "id": 5,
+    "title": "🌊 CSS 浮动与定位冒险",
+    "description": "浮动与定位练习，让元素在页面上自由飞翔！学习如何控制元素的位置，就像指挥小精灵跳舞一样 🕺",
+    "link": "/practice/04-css-01",
+    "imageUrl": "/practice/images/生成可爱图片 (1).png",
+    "tags": ["🌊 浮动", "🎨 CSS", "📍 定位"]
+  },
+  {
+    "id": 6,
+    "title": "🎯 CSS 定位魔法师",
+    "description": "相对定位与绝对定位的奇妙世界！学习如何精确控制元素位置，就像魔法师施法一样精准 ✨",
+    "link": "/practice/04-css-02",
+    "imageUrl": "/practice/images/生成可爱图片 (2).png",
+    "tags": ["🎯 定位", "🎨 CSS", "✨ 魔法"]
+  },
+  {
+    "id": 7,
+    "title": "🔍 CSS 相对定位探秘",
+    "description": "深入理解相对定位的奥秘！学习元素如何相对于自己的位置进行移动，就像学会了瞬间移动魔法 🚀",
+    "link": "/practice/04-css-02-relative",
+    "imageUrl": "/practice/images/生成可爱图片 (3).png",
+    "tags": ["🔍 相对定位", "🎨 CSS", "🚀 瞬间移动"]
+  },
+  {
+    "id": 8,
+    "title": "📰 新闻小记者 1",
+    "description": "使用 HTML 和 CSS 构建静态新闻页面，成为网络世界的小记者！学习如何制作漂亮的新闻页面 📝",
+    "link": "/practice/05-news01",
+    "imageUrl": "/practice/images/生成可爱图片.png",
+    "tags": ["📰 新闻", "🎨 CSS", "📝 记者"]
+  },
+  {
+    "id": 9,
+    "title": "🎮 新闻小记者 2 - 交互版",
+    "description": "带有 JavaScript 交互的新闻页面，让页面活起来！学习如何添加动态效果，就像给页面注入了生命 🎭",
+    "link": "/practice/06-news01",
+    "imageUrl": "/practice/images/生成可爱图片 (1).png",
+    "tags": ["🎮 交互", "📰 新闻", "🎭 动态"]
+  },
+  {
+    "id": 10,
+    "title": "🏗️ 新闻小记者 3 - 建筑师",
+    "description": "更复杂的新闻页面布局和脚本，成为页面建筑师！学习如何构建复杂的页面结构 🏛️",
+    "link": "/practice/06-news02",
+    "imageUrl": "/practice/images/生成可爱图片 (2).png",
+    "tags": ["🏗️ 建筑师", "📰 新闻", "🏛️ 复杂布局"]
+  },
+  {
+    "id": 11,
+    "title": "⏰ 异步编程时间魔法师 1",
+    "description": "使用 Promise 和 async/await 处理异步操作，成为时间魔法师！学习如何让代码等待和协调 ⏳",
+    "link": "/practice/07-async-01",
+    "imageUrl": "/practice/images/生成可爱图片 (3).png",
+    "tags": ["⏰ 异步", "🔮 Promise", "🎭 async/await"]
+  },
+  {
+    "id": 12,
+    "title": "🌐 网络探险家 - 异步编程 2",
+    "description": "fetch API 和异步数据获取实践，成为网络探险家！学习如何从网络获取数据，就像在数字世界探险 🗺️",
+    "link": "/practice/07-async-02",
+    "imageUrl": "/practice/images/生成可爱图片.png",
+    "tags": ["🌐 网络", "🔗 API", "🗺️ 探险"]
+  },
+  {
+    "id": 13,
+    "title": "🏠 原始首页时光机",
+    "description": "最初的静态 HTML 首页，回到网页设计的起点！看看最初的网页是什么样子的，就像乘坐时光机回到过去 ⏰",
+    "link": "/practice/index",
+    "imageUrl": "/practice/images/生成可爱图片 (1).png",
+    "tags": ["🏠 首页", "⏰ 时光机", "📜 历史"]
+  }
+] 

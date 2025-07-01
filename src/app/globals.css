@@ -1,0 +1,183 @@
+@import "tailwindcss";
+
+:root {
+  --background: #fffbf0;
+  --foreground: #4a4a4a;
+  --primary: #ffd93d;
+  --primary-light: #ffeaa7;
+  --primary-dark: #fdcb6e;
+  --accent: #fd79a8;
+  --accent-light: #fdcb6e;
+  --text-primary: #2d3436;
+  --text-secondary: #636e72;
+}
+
+@theme inline {
+  --color-background: var(--background);
+  --color-foreground: var(--foreground);
+  --font-sans: 'Comic Sans MS', 'Chalkboard SE', 'Comic Neue', cursive;
+  --font-mono: 'Courier New', monospace;
+}
+
+@media (prefers-color-scheme: dark) {
+  :root {
+    --background: #2d3436;
+    --foreground: #f5f6fa;
+    --primary: #ffd93d;
+    --primary-light: #ffeaa7;
+    --primary-dark: #fdcb6e;
+    --accent: #fd79a8;
+    --accent-light: #fdcb6e;
+    --text-primary: #f5f6fa;
+    --text-secondary: #dfe6e9;
+  }
+}
+
+body {
+  background: var(--background);
+  color: var(--foreground);
+  font-family: 'Comic Sans MS', 'Chalkboard SE', 'Comic Neue', cursive;
+  background-image: 
+    radial-gradient(circle at 20% 80%, rgba(255, 217, 61, 0.1) 0%, transparent 50%),
+    radial-gradient(circle at 80% 20%, rgba(253, 121, 168, 0.1) 0%, transparent 50%),
+    radial-gradient(circle at 40% 40%, rgba(253, 203, 110, 0.05) 0%, transparent 50%);
+}
+
+/* 可爱动画效果 */
+@keyframes bounce {
+  0%, 20%, 50%, 80%, 100% {
+    transform: translateY(0);
+  }
+  40% {
+    transform: translateY(-10px);
+  }
+  60% {
+    transform: translateY(-5px);
+  }
+}
+
+@keyframes wiggle {
+  0%, 7% {
+    transform: rotateZ(0);
+  }
+  15% {
+    transform: rotateZ(-15deg);
+  }
+  20% {
+    transform: rotateZ(10deg);
+  }
+  25% {
+    transform: rotateZ(-10deg);
+  }
+  30% {
+    transform: rotateZ(6deg);
+  }
+  35% {
+    transform: rotateZ(-4deg);
+  }
+  40%, 100% {
+    transform: rotateZ(0);
+  }
+}
+
+@keyframes float {
+  0%, 100% {
+    transform: translateY(0px);
+  }
+  50% {
+    transform: translateY(-10px);
+  }
+}
+
+@keyframes fade-in {
+  0% {
+    opacity: 0;
+    transform: translateY(-20px);
+  }
+  100% {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+.bounce-animation {
+  animation: bounce 2s infinite;
+}
+
+.wiggle-animation {
+  animation: wiggle 1s ease-in-out;
+}
+
+.float-animation {
+  animation: float 3s ease-in-out infinite;
+}
+
+.animate-fade-in {
+  animation: fade-in 0.5s ease-out;
+}
+
+/* 可爱按钮样式 */
+.cute-button {
+  background: linear-gradient(135deg, var(--primary), var(--primary-light));
+  border: 3px solid var(--primary-dark);
+  border-radius: 25px;
+  padding: 12px 24px;
+  font-weight: bold;
+  color: var(--text-primary);
+  box-shadow: 0 4px 15px rgba(255, 217, 61, 0.3);
+  transition: all 0.3s ease;
+}
+
+.cute-button:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 6px 20px rgba(255, 217, 61, 0.4);
+}
+
+/* 可爱卡片样式 */
+.cute-card {
+  background: rgba(255, 255, 255, 0.9);
+  border: 3px solid var(--primary);
+  border-radius: 20px;
+  box-shadow: 0 8px 25px rgba(255, 217, 61, 0.2);
+  transition: all 0.3s ease;
+}
+
+.cute-card:hover {
+  transform: translateY(-5px) scale(1.02);
+  box-shadow: 0 12px 35px rgba(255, 217, 61, 0.3);
+}
+
+/* 可爱标签样式 */
+.cute-tag {
+  background: linear-gradient(135deg, var(--accent), var(--accent-light));
+  color: white;
+  border-radius: 15px;
+  padding: 4px 12px;
+  font-size: 0.8rem;
+  font-weight: bold;
+  box-shadow: 0 2px 8px rgba(253, 121, 168, 0.3);
+}
+
+/* 可爱标题样式 */
+.cute-title {
+  background: linear-gradient(135deg, var(--primary), var(--accent));
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  background-clip: text;
+  text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.1);
+}
+
+/* 可爱装饰元素 */
+.cute-decoration {
+  position: absolute;
+  font-size: 1.5rem;
+  opacity: 0.6;
+  z-index: -1;
+}
+
+/* main.css 样式迁移自 practice/main.css */
+h1 {
+  font-size: 32px;
+  text-align: center;
+  color: var(--text-primary);
+}
